@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习阶梯 | 智慧题库</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6e9f2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景装饰粒子 */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
+            margin: 10px auto 0;
+        }
+
+        .inspiration {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 2.5rem;
+            min-height: 60px;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .level-btn {
+            padding: 25px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 25%,
+                rgba(255,255,255,0.2) 50%,
+                transparent 75%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-150%) rotate(45deg); }
+            100% { transform: translateX(150%) rotate(45deg); }
+        }
+
+        .level-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* 学段图标 */
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
+        }
+
+        /* 各学段配色 */
+        .junior {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .senior {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .college {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .button-container { gap: 20px; }
+            .level-btn { font-size: 1.3em; padding: 20px; }
+            .icon { font-size: 2em; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 背景粒子 -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <h1>知识阶梯 步步登高</h1>
+        <div class="inspiration" id="inspiration">学习如登山，坚持见巅峰</div>
+        
+        <div class="button-container">
+            <a href="https://1li2zhe3zi.github.io/tiku/chuzhong" class="level-btn junior">
+                <i class="icon fas fa-seedling"></i>
+                初中题库
+            </a>
+            
+            <a href="https://1li2zhe3zi.github.io/tiku/gaozhong" class="level-btn senior">
+                <i class="icon fas fa-tree"></i>
+                高中题库
+            </a>
+            
+            <a href="https://1li2zhe3zi.github.io/tiku/daxue" class="level-btn college">
+                <i class="icon fas fa-graduation-cap"></i>
+                大学题库
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 随机励志语句
+        const inspirations = [
+            "宝剑锋从磨砺出，梅花香自苦寒来",
+            "日日行不怕千万里，时时学不惧万卷书",
+            "星光不问赶路人，时光不负有心人",
+            "学如逆水行舟，不进则退",
+            "今天的努力，是明天的实力",
+            "知识是人生最华丽的阶梯",
+            "勤学如春起之苗，不见其增日有所长"
+        ];
+
+        // 初始化励志文本
+        const inspirationEl = document.getElementById('inspiration');
+        let currentIndex = 0;
+
+        function updateInspiration() {
+            inspirationEl.style.opacity = 0;
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % inspirations.length;
+                inspirationEl.textContent = inspirations[currentIndex];
+                inspirationEl.style.opacity = 1;
+            }, 500);
+        }
+
+        // 每8秒更换语句
+        setInterval(updateInspiration, 8000);
+
+        // 创建背景粒子
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.width = particle.style.height = 
+                    `${Math.random() * 6 + 4}px`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        window.onload = () => {
+            createParticles();
+            // 初始随机选择
+            currentIndex = Math.floor(Math.random() * inspirations.length);
+            inspirationEl.textContent = inspirations[currentIndex];
+        };
+    </script>
+</body>
+</html>
